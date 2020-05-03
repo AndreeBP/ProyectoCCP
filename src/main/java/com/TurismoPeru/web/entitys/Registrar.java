@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="usuario")
-public class Usuario {
+@Table(name="registrar")
+public class Registrar {
 	
 	@Id
 	@Column(name="id")
@@ -19,8 +19,14 @@ public class Usuario {
 	@Column(name="nombre", nullable=false)
 	private String name;
 	
+	@Column(name="correo", nullable=false)
+	private String correo;
+	
 	@Column(name="contraseña", nullable=false)
 	private String contraseña;
+	
+	@Column(name="dni", nullable=false)
+	private int dni;
 
 	public Long getId() {
 		return id;
@@ -38,6 +44,14 @@ public class Usuario {
 		this.name = name;
 	}
 
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
 	public String getContraseña() {
 		return contraseña;
 	}
@@ -46,5 +60,15 @@ public class Usuario {
 		this.contraseña = contraseña;
 	}
 
+	public int getDni() {
+		return dni;
+	}
+
+	public void setDni(int dni) {
+		this.dni = dni;
+	}
 	
+	
+	
+
 }
