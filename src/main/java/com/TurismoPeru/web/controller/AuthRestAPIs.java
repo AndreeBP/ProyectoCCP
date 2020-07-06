@@ -68,18 +68,14 @@ public class AuthRestAPIs {
     @PostMapping("/signup")
     public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
         if(userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return new ResponseEntity<String>("Fail -> Username is already taken!",
+            return new ResponseEntity<String>("Error : este correo se encuentra en uso",
                     HttpStatus.BAD_REQUEST);
         }
-
-        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity<String>("Fail -> Email is already in use!",
-                    HttpStatus.BAD_REQUEST);
-        }
+        
 
         // Creacion de la cuenta del usuario
-        User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
-                signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
+        User user = new User(signUpRequest.getNombre(), signUpRequest.getUsername(),
+                signUpRequest.getApellido(), encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
@@ -92,12 +88,7 @@ public class AuthRestAPIs {
 	    			roles.add(adminRole);
 	    			
 	    			break;
-	    		//case "pm":
-	            	//Role pmRole = roleRepository.findByName(RoleName.ROLE_PM)
-	                //.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-	            	//roles.add(pmRole);
-	            	
-	    			//break;
+
 	    		default:
 	        		Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
 	                .orElseThrow(() -> new RuntimeException("Error: No puede acceder a este contenido"));
@@ -108,6 +99,6 @@ public class AuthRestAPIs {
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok().body("User registered successfully!");
+        return ResponseEntity.ok().body("Usuario registrado exitosamente :)");
     }
 }

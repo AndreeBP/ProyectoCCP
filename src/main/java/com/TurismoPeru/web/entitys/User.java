@@ -17,16 +17,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.NaturalId;
-
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
             "username"
         }),
-        @UniqueConstraint(columnNames = {
-            "email"
-        })
 })
 public class User{
 	@Id
@@ -35,34 +30,34 @@ public class User{
 
     @NotBlank
     @Size(min=3, max = 50)
-    private String name;
+    private String nombre;
 
     @NotBlank
+    @Email
     @Size(min=3, max = 50)
     private String username;
 
-    @NaturalId
-    @NotBlank
-    @Size(max = 50)
-    @Email
-    private String email;
 
     @NotBlank
-    @Size(min=3, max = 30)
+    @Size(min=3, max = 50)
+    private String apellido;
+
+    @NotBlank
+    @Size(min=3, max = 40)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "usuario_roles", 
-    	joinColumns = @JoinColumn(name = "usuario_id"), 
+    @JoinTable(name = "user_roles", 
+    	joinColumns = @JoinColumn(name = "user_id"), 
     	inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     public User() {}
 
-    public User(String name, String username, String email, String password) {
-        this.name = name;
+    public User(String nombre, String username, String apellido, String password) {
+        this.nombre = nombre;
         this.username = username;
-        this.email = email;
+        this.apellido = apellido;
         this.password = password;
     }
 
@@ -82,20 +77,20 @@ public class User{
         this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getEmail() {
-        return email;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public String getPassword() {

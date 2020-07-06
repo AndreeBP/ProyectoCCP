@@ -1,10 +1,12 @@
 package com.TurismoPeru.web.message.request;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class LoginForm {
     @NotBlank
+    @Email
     @Size(min=3, max = 60)
     private String username;
 

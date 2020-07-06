@@ -24,6 +24,6 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
                         		 throws IOException, ServletException {
     	
         logger.error("No esta autorizado. Message - {}", e.getMessage());
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error -> No autorizado");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Contraseña incorrecta");
     }
 }
